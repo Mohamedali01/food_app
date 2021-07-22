@@ -1,0 +1,1 @@
+const kSelectedMeal = 0xffFFEADE;
