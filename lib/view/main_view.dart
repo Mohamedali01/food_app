@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:food_application/view/meal_detail_view.dart';
 import 'package:food_application/widgets/category_item_widget.dart';
 import 'package:food_application/widgets/meal_widget.dart';
+import 'package:food_application/widgets/responsive_widgets/responsive_text.dart';
 import 'package:get/get.dart';
 
 class MainView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Color(0xffF7F7F7),
       body: SafeArea(
         child: Container(
-          width: double.infinity,
+          width: width,
           height: double.infinity,
           child: ListView(
             children: [
@@ -32,114 +36,33 @@ class MainView extends StatelessWidget {
                     SizedBox(
                       height: 50,
                     ),
-                    Align(
+                    ResponsiveText(
                       alignment: Alignment.center,
-                      child: Text(
-                        'FIND YOUR',
-                        style: TextStyle(
-                            fontSize: 12, fontWeight: FontWeight.w400),
-                      ),
+                      text: 'FIND YOUR',
+                      width: width * 0.15,
                     ),
-                    Align(
+                    ResponsiveText(
                       alignment: Alignment.center,
-                      child: Text(
-                        'Favorite Foods',
-                        style: TextStyle(
-                            fontSize: 28, fontWeight: FontWeight.w600),
-                      ),
+                      text: 'Favorite Foods',
+                      width: width * 0.4,
+                      style: TextStyle(fontWeight: FontWeight.w600),
                     ),
                     SizedBox(
                       height: 35,
                     ),
-                    Container(
-                      width: 350,
-                      height: 55,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: ListTile(
-                          leading: Icon(
-                            Icons.search,
-                            size: 25,
-                          ),
-                          title: Container(
-                            // margin: EdgeInsets.only(bottom: 8),
-                            child: TextFormField(
-                              scrollPadding: EdgeInsets.zero,
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: 'Search',
-                                hintStyle: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black),
-                              ),
-                            ),
-                          ),
-                          trailing: Image.asset(
-                            'assets/images/Group 12.png',
-                            scale: 3,
-                          )),
-                    ),
+                    buildSearchContainer(width),
                     SizedBox(
                       height: 30,
                     ),
                   ],
                 ),
               ),
-              Container(
-                width: double.infinity,
-                height: 180,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 40, left: 50),
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      CategoryItemWidget(
-                        image: 'assets/images/Group 14.png',
-                        name: 'Burger',
-                        number: '15',
-                      ),
-                      SizedBox(
-                        width: 50,
-                      ),
-                      CategoryItemWidget(
-                        image: 'assets/images/Group 18.png',
-                        name: 'Pizza',
-                        number: '18',
-                      ),
-                      SizedBox(
-                        width: 50,
-                      ),
-                      CategoryItemWidget(
-                        image: 'assets/images/Path 19.png',
-                        name: 'Rolls',
-                        number: '12',
-                      ),
-                      SizedBox(
-                        width: 50,
-                      ),
-                      CategoryItemWidget(
-                        image: 'assets/images/Group 34.png',
-                        name: 'Soup',
-                        number: '20',
-                      ),
-                      SizedBox(
-                        width: 50,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              buildCategoriesContainer(
+                  height: height, width: width, context: context),
               SizedBox(height: 30),
               Container(
                   height: 300,
-                  width: double.infinity,
+                  width: width,
                   padding: EdgeInsets.only(left: 32),
                   child: ListView.separated(
                       scrollDirection: Axis.horizontal,
@@ -158,6 +81,107 @@ class MainView extends StatelessWidget {
                           ),
                       itemCount: 10)),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildSearchContainer(double width) {
+    return Align(
+      alignment: Alignment.center,
+      child: Container(
+        width: width * 0.9,
+        height: 45,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: ListTile(
+          leading: Icon(
+            Icons.search,
+            size: 25,
+          ),
+          title: Container(
+            // margin: EdgeInsets.only(bottom: 8),
+            child: TextFormField(
+              scrollPadding: EdgeInsets.zero,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: 'Search',
+                hintStyle: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black),
+              ),
+            ),
+          ),
+          trailing: Image.asset(
+            'assets/images/Group 12.png',
+            scale: 3,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container buildCategoriesContainer(
+      {double height, double width, BuildContext context}) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: AspectRatio(
+          aspectRatio:3.5 ,
+          child: Container(
+            child: LayoutBuilder(
+              builder: (context, constrains) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      width: constrains.maxWidth*0.2,
+                      height: constrains.maxHeight,
+                      child: CategoryItemWidget(
+                        image: 'assets/images/Group 14.png',
+                        name: 'Burger',
+                        number: '15',
+                      ),
+                    ),
+                    Container(
+                      width: constrains.maxWidth*0.2,
+                      height: constrains.maxHeight,
+                      child: CategoryItemWidget(
+                        image: 'assets/images/Group 18.png',
+                        name: 'Pizza',
+                        number: '18',
+                      ),
+                    ),
+                    Container(
+                      width: constrains.maxWidth*0.2,
+                      height: constrains.maxHeight,
+                      child: CategoryItemWidget(
+                        image: 'assets/images/Path 19.png',
+                        name: 'Rolls',
+                        number: '12',
+                      ),
+                    ),
+                    Container(
+                      width: constrains.maxWidth*0.2,
+                      height: constrains.maxHeight,
+                      child: CategoryItemWidget(
+                        image: 'assets/images/Group 34.png',
+                        name: 'Soup',
+                        number: '20',
+                      ),
+                    ),
+                  ],
+                );
+              }
+            ),
           ),
         ),
       ),

@@ -13,188 +13,10 @@ class MealDetailView extends StatelessWidget {
               height: MediaQuery.of(context).size.height,
               child: Stack(
                 children: [
-                  /// The Image
                   buildImage(),
-                 Positioned(
-                     top: 180,
-                     right: 20,
-                     child: CircleAvatar(
-                       backgroundColor: Colors.white,
-                       child: Image.asset('assets/images/Path 35.png',scale: 3,),),),
-                  Positioned(
-                    top: 230,
-                    right: 20,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.white,
-                      child: Image.asset('assets/images/Group 311.png',scale: 3,),),),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 30, left: 20, right: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          onTap:()=>Get.back(),
-                          child: Image.asset(
-                            'assets/images/Back icon.png',
-                            scale: 4,
-                          ),
-                        ),
-                        Image.asset(
-                          'assets/images/Search icon.png',
-                          scale: 4,
-                        )
-                      ],
-                    ),
-                  ),
-
-                  ///Second white container
-                  Positioned(
-                    top: 290,
-                    bottom: 1,
-                    child: Container(
-                      height: 300,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50),
-                          topRight: Radius.circular(50),
-                        ),
-                      ),
-                      child: ListView(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 50, left: 20, right: 20),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.orange,
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      '4.9   -   20 mins   -   Free Delivery',
-                                      style: TextStyle(
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  'Beef Burger',
-                                  style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  "Donec laoreet varius ipsum a fermentum. Duis maximus vulputate tellus non vestibulum.",
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Text(
-                                  'Nutrition Quantity',
-                                  style: TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20),
-                                ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                Container(
-                                  height: 140,
-                                  child: ListView(
-                                    scrollDirection: Axis.horizontal,
-                                    children: [
-                                      SizedBox(
-                                        width: 20,
-                                      ),
-                                      MealDetailWidget(
-                                        name: 'Calories',
-                                        number: '255',
-                                        amountType: 'kcal',
-                                      ),
-                                      SizedBox(
-                                        width: 20,
-                                      ),
-                                      MealDetailWidget(
-                                        name: 'Protein',
-                                        number: '11',
-                                        amountType: 'g',
-                                      ),
-                                      SizedBox(
-                                        width: 20,
-                                      ),
-                                      MealDetailWidget(
-                                        amountType: 'mg',
-                                        number: '598',
-                                        name: 'Sodium',
-                                      ),
-                                      SizedBox(
-                                        width: 20,
-                                      ),
-                                      MealDetailWidget(
-                                        name: 'Cholesterol',
-                                        number: '17',
-                                        amountType: 'mg',
-                                      ),
-                                      SizedBox(
-                                        width: 20,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Text(
-                                  'Main ingredients',
-                                  style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                buildRowMainIngredients(
-                                    text: 'Dough', numberOfCubs: '2'),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                buildRowMainIngredients(
-                                    text: 'Sauce ', numberOfCubs: '1'),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                buildRowMainIngredients(
-                                    text: 'Cheese', numberOfCubs: '0.5'),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  /// The badge between the image and second container
+                 buildFavouriteAndShareIcons(),
+                  buildBackAndSearchIcons(),
+                  buildMeal(context),
                   buildBadge()
                 ],
               ),
@@ -203,6 +25,195 @@ class MealDetailView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Positioned buildMeal(BuildContext context) {
+    return Positioned(
+                  top: 290,
+                  bottom: 1,
+                  child: Container(
+                    height: 300,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(50),
+                        topRight: Radius.circular(50),
+                      ),
+                    ),
+                    child: ListView(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 50, left: 20, right: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.orange,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    '4.9   -   20 mins   -   Free Delivery',
+                                    style: TextStyle(
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Beef Burger',
+                                style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                "Donec laoreet varius ipsum a fermentum. Duis maximus vulputate tellus non vestibulum.",
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                'Nutrition Quantity',
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 20),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Container(
+                                height: 140,
+                                child: ListView(
+                                  scrollDirection: Axis.horizontal,
+                                  children: [
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    MealDetailWidget(
+                                      name: 'Calories',
+                                      number: '255',
+                                      amountType: 'kcal',
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    MealDetailWidget(
+                                      name: 'Protein',
+                                      number: '11',
+                                      amountType: 'g',
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    MealDetailWidget(
+                                      amountType: 'mg',
+                                      number: '598',
+                                      name: 'Sodium',
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    MealDetailWidget(
+                                      name: 'Cholesterol',
+                                      number: '17',
+                                      amountType: 'mg',
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                'Main ingredients',
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              buildRowMainIngredients(
+                                  text: 'Dough', numberOfCubs: '2'),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              buildRowMainIngredients(
+                                  text: 'Sauce ', numberOfCubs: '1'),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              buildRowMainIngredients(
+                                  text: 'Cheese', numberOfCubs: '0.5'),
+                              SizedBox(
+                                height: 15,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+  }
+
+  Padding buildBackAndSearchIcons() {
+    return Padding(
+                  padding:
+                      const EdgeInsets.only(top: 30, left: 20, right: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap:()=>Get.back(),
+                        child: Image.asset(
+                          'assets/images/Back icon.png',
+                          scale: 4,
+                        ),
+                      ),
+                      Image.asset(
+                        'assets/images/Search icon.png',
+                        scale: 4,
+                      )
+                    ],
+                  ),
+                );
+  }
+
+  Column buildFavouriteAndShareIcons() {
+    return Column(
+                 children: [
+                   Positioned(
+                       top: 180,
+                       right: 20,
+                       child: CircleAvatar(
+                         backgroundColor: Colors.white,
+                         child: Image.asset('assets/images/Path 35.png',scale: 3,),),),
+                    Positioned(
+                      top: 230,
+                      right: 20,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: Image.asset('assets/images/Group 311.png',scale: 3,),),),
+                 ],
+               );
   }
 
   Widget buildRowMainIngredients({String text, String numberOfCubs}) {

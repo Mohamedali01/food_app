@@ -21,6 +21,8 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  flutter_screenutil: ^5.0.0+2
+  auto_size_text: ^2.1.0
   get: ^4.2.4
   flutter:
     sdk: flutter
