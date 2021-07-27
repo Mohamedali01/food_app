@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:food_application/widgets/responsive_widgets/responsive_image.dart';
+import 'package:food_application/widgets/responsive_widgets/responsive_text.dart';
 
 class MealWidget extends StatelessWidget {
   final String image;
@@ -12,79 +14,77 @@ class MealWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      height: 300,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(30),
-      ),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 20,
+    return LayoutBuilder(
+      builder: (context, constrains) {
+        print('maxWidth1: ${constrains.maxWidth}');
+        return Container(
+          padding: EdgeInsets.only(top: constrains.maxHeight*0.1),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(30),
           ),
-          Stack(
+          child: Column(
             children: [
-              Image.asset(
-                image,
-                scale: 3.5,
-              ),
-              Positioned(
-                right: -12,
-                bottom: -15,
-                child: Stack(
-                  children: [
-                    Image.asset(
-                      'assets/images/Ellipse 5.png',
-                      scale: 3,
+              Stack(
+                children: [
+                  AspectRatio(
+                    aspectRatio: 16 / 9,
+                    child: ResponsiveImage(
+                      image: image,
                     ),
-                    Positioned(
-                      // left: 0,
-                      // right: 0,
-                      // top: 0,
-                      bottom: 33,
-                      left: 27,
-                      child: Text(
-                        price,
-                        style: TextStyle(color: Colors.white),
+                  ),
+                  Positioned(
+                    left: constrains.maxWidth * 0.65,
+                    top: constrains.maxHeight * 0.3,
+                    child: CircleAvatar(
+                      radius: constrains.maxWidth * 0.1,
+                      backgroundColor: Color(0xffFF8C46),
+                      child: ResponsiveText(
+                        alignment: Alignment.center,
+                        text: '15.9',
+                        width: constrains.maxWidth * 0.15,
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w600),
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          Text(
-            name,
-            style: TextStyle(
-                color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.star,
-                color: Colors.orange,
+                  ),
+                ],
               ),
               SizedBox(
-                width: 10,
+                height: 20,
               ),
-              Text(
-                '$rating   -   $timePerMinute mins',
+              ResponsiveText(
+                text: name,
+                width: constrains.maxWidth * 0.4,
+                alignment: Alignment.center,
                 style:
-                    TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
+                    TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
               ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.star,
+                    color: Colors.orange,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  ResponsiveText(
+                    text: '$rating   -   $timePerMinute mins',
+                    width: constrains.maxWidth * 0.5,
+                    style: TextStyle(
+                        color: Colors.grey, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              )
             ],
-          )
-        ],
-      ),
+          ),
+        );
+      },
     );
   }
 }

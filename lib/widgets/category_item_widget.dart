@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_application/widgets/responsive_widgets/responsive_image.dart';
 import 'package:food_application/widgets/responsive_widgets/responsive_text.dart';
 
 class CategoryItemWidget extends StatelessWidget {
@@ -18,11 +19,10 @@ class CategoryItemWidget extends StatelessWidget {
 
         return Column(
           children: [
-            Container(
-              width: constrains.maxWidth * 0.3,
-              height: constrains.maxWidth * 0.3,
-              child: Image.asset(
-                image,
+            AspectRatio(
+             aspectRatio: 8/3,
+              child: ResponsiveImage(
+                image: image,
               ),
             ),
             SizedBox(
@@ -36,7 +36,6 @@ class CategoryItemWidget extends StatelessWidget {
                 width: constrains.maxWidth * 0.3,
               ),
             ),
-
             Center(
               child: Container(
                 width: constrains.maxWidth * 0.01,

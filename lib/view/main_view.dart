@@ -10,13 +10,12 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-
     return Scaffold(
       backgroundColor: Color(0xffF7F7F7),
       body: SafeArea(
         child: Container(
           width: width,
-          height: double.infinity,
+          height: height,
           child: ListView(
             children: [
               Padding(
@@ -50,7 +49,7 @@ class MainView extends StatelessWidget {
                     SizedBox(
                       height: 35,
                     ),
-                    buildSearchContainer(width),
+                    buildSearchContainer(width,height),
                     SizedBox(
                       height: 30,
                     ),
@@ -59,27 +58,37 @@ class MainView extends StatelessWidget {
               ),
               buildCategoriesContainer(
                   height: height, width: width, context: context),
-              SizedBox(height: 30),
+              SizedBox(height: height * 0.07),
               Container(
-                  height: 300,
+                child: Container(
+                  height: width*0.72,
                   width: width,
-                  padding: EdgeInsets.only(left: 32),
-                  child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (_, index) => InkWell(
-                            onTap: () => Get.to(MealDetailView()),
-                            child: MealWidget(
-                              image: 'assets/images/OGMOK20.png',
-                              name: 'Beef Burger',
-                              price: '15.9',
-                              rating: '4.9',
-                              timePerMinute: '20',
+                  child: Container(
+                    padding: EdgeInsets.only(left: 32),
+                    child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (_, index) => InkWell(
+                              onTap: () => Get.to(MealDetailView()),
+                              child: Container(
+                                height: width*0.72,
+                                width: width*0.6,
+
+                                child: MealWidget(
+                                  image: 'assets/images/OGMOK20.png',
+                                  name: 'Beef Burger',
+                                  price: '15.9',
+                                  rating: '4.9',
+                                  timePerMinute: '20',
+                                ),
+                              ),
                             ),
-                          ),
-                      separatorBuilder: (ctx, i) => SizedBox(
-                            width: 20,
-                          ),
-                      itemCount: 10)),
+                        separatorBuilder: (ctx, i) => SizedBox(
+                              width: 20,
+                            ),
+                        itemCount: 10),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -87,12 +96,12 @@ class MainView extends StatelessWidget {
     );
   }
 
-  Widget buildSearchContainer(double width) {
+  Widget buildSearchContainer(double width,double height) {
     return Align(
       alignment: Alignment.center,
       child: Container(
         width: width * 0.9,
-        height: 45,
+        height: height*0.07,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(30),
@@ -103,7 +112,7 @@ class MainView extends StatelessWidget {
             size: 25,
           ),
           title: Container(
-            // margin: EdgeInsets.only(bottom: 8),
+            margin: EdgeInsets.only(bottom: 8),
             child: TextFormField(
               scrollPadding: EdgeInsets.zero,
               decoration: InputDecoration(
@@ -135,53 +144,47 @@ class MainView extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(top: 20),
         child: AspectRatio(
-          aspectRatio:3.5 ,
+          aspectRatio: 25 / 9,
           child: Container(
-            child: LayoutBuilder(
-              builder: (context, constrains) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      width: constrains.maxWidth*0.2,
-                      height: constrains.maxHeight,
-                      child: CategoryItemWidget(
-                        image: 'assets/images/Group 14.png',
-                        name: 'Burger',
-                        number: '15',
-                      ),
+            child: LayoutBuilder(builder: (context, constrains) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    width: constrains.maxWidth * 0.2,
+                    child: CategoryItemWidget(
+                      image: 'assets/images/Group 14.png',
+                      name: 'Burger',
+                      number: '15',
                     ),
-                    Container(
-                      width: constrains.maxWidth*0.2,
-                      height: constrains.maxHeight,
-                      child: CategoryItemWidget(
-                        image: 'assets/images/Group 18.png',
-                        name: 'Pizza',
-                        number: '18',
-                      ),
+                  ),
+                  Container(
+                    width: constrains.maxWidth * 0.2,
+                    child: CategoryItemWidget(
+                      image: 'assets/images/Group 18.png',
+                      name: 'Pizza',
+                      number: '18',
                     ),
-                    Container(
-                      width: constrains.maxWidth*0.2,
-                      height: constrains.maxHeight,
-                      child: CategoryItemWidget(
-                        image: 'assets/images/Path 19.png',
-                        name: 'Rolls',
-                        number: '12',
-                      ),
+                  ),
+                  Container(
+                    width: constrains.maxWidth * 0.2,
+                    child: CategoryItemWidget(
+                      image: 'assets/images/Path 19.png',
+                      name: 'Rolls',
+                      number: '12',
                     ),
-                    Container(
-                      width: constrains.maxWidth*0.2,
-                      height: constrains.maxHeight,
-                      child: CategoryItemWidget(
-                        image: 'assets/images/Group 34.png',
-                        name: 'Soup',
-                        number: '20',
-                      ),
+                  ),
+                  Container(
+                    width: constrains.maxWidth * 0.2,
+                    child: CategoryItemWidget(
+                      image: 'assets/images/Group 34.png',
+                      name: 'Soup',
+                      number: '20',
                     ),
-                  ],
-                );
-              }
-            ),
+                  ),
+                ],
+              );
+            }),
           ),
         ),
       ),
